@@ -2,8 +2,7 @@
 //  ContentView.swift
 //  QuizUp
 //
-//  Created by Jimmy kroneld on 2026-03-27.
-//
+// created by group 4
 
 import SwiftUI
 
