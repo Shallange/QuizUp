@@ -34,8 +34,11 @@ struct QuizTesting: View {
                 ForEach(current.choices.indices, id: \.self) { i in
                     Button {
                         selected = i
-                        if index + 1 < questionList.count {
-                            index += 1
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            if index + 1 < questionList.count {
+                                index += 1
+                            }
+                            selected = nil
                         }
                     } label: {
                         Text(current.choices[i])
