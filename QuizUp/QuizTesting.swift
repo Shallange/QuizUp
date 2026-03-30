@@ -32,6 +32,7 @@ struct QuizTesting: View {
                 ForEach(current.choices, id: \.self) { choice in
                     Button {
                         selected = choice
+                        index += 1
                     } label: {
                         Text(choice)
                     }
@@ -40,7 +41,6 @@ struct QuizTesting: View {
 
             if let selected {
                 Text(selected == current.correctAnswer ? "Correct!" : "Wrong!")
-                // logic for go next question
             }
         }
         .padding()
