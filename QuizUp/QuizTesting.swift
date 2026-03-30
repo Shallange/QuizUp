@@ -11,18 +11,19 @@ struct Qustion: Identifiable {
     let id = UUID()
     let text: String
     let choices: [String]
-    let correctAnswer: String
+    let correctAnswer: Int
 }
 
 struct QuizTesting: View {
     @State var questionList = [
-        Qustion(text: "What shape is Earth1", choices: ["Flat", "Ball", "Can"], correctAnswer: "Flat"),
-        Qustion(text: "What shape is Earth2", choices: ["Flat", "Ball", "Can"], correctAnswer: "Can"),
-        Qustion(text: "What shape is Earth3", choices: ["Flat", "Ball", "Can"], correctAnswer: "Ball")
+        Qustion(text: "What shape is Earth1", choices: ["Flat", "Ball", "Can"], correctAnswer: 0),
+        Qustion(text: "What shape is Earth2", choices: ["Flat", "Ball", "Can"], correctAnswer: 2),
+        Qustion(text: "What shape is Earth3", choices: ["Flat", "Ball", "Can"], correctAnswer: 1),
+        Qustion(text: "What shape is Earth4", choices: ["Flat", "Ball", "Can"], correctAnswer: 1)
     ]
 
     @State private var index = 0
-    @State private var selected: String? = nil
+    @State private var selected: Int? = nil
     
     var current: Qustion { questionList[index] }
 
@@ -30,14 +31,14 @@ struct QuizTesting: View {
         VStack(spacing: 24) {
             Text(current.text)
             VStack(spacing: 12) {
-                ForEach(current.choices, id: \.self) { choice in
+                ForEach(current.choices.indices, id: \.self) { i in
                     Button {
-                        selected = choice
+                        selected = i
                         if index + 1 < questionList.count {
                             index += 1
                         }
                     } label: {
-                        Text(choice)
+                        Text(current.choices[i])
                     }
                 }
             }
