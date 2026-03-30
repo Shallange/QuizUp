@@ -16,8 +16,9 @@ struct Qustion: Identifiable {
 
 struct QuizTesting: View {
     @State var questionList = [
-        Qustion(text: "What shape is Earth", choices: ["Flat", "Ball", "Can"], correctAnswer: "Flat"),
-        Qustion(text: "What shape is Earth", choices: ["Flat", "Ball", "Can"], correctAnswer: "Can")
+        Qustion(text: "What shape is Earth1", choices: ["Flat", "Ball", "Can"], correctAnswer: "Flat"),
+        Qustion(text: "What shape is Earth2", choices: ["Flat", "Ball", "Can"], correctAnswer: "Can"),
+        Qustion(text: "What shape is Earth3", choices: ["Flat", "Ball", "Can"], correctAnswer: "Ball")
     ]
 
     @State private var index = 0
@@ -32,7 +33,9 @@ struct QuizTesting: View {
                 ForEach(current.choices, id: \.self) { choice in
                     Button {
                         selected = choice
-                        index += 1
+                        if index + 1 < questionList.count {
+                            index += 1
+                        }
                     } label: {
                         Text(choice)
                     }
