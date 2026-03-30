@@ -15,20 +15,21 @@ struct Qustion: Identifiable {
 }
 
 struct QuizTesting: View {
-    let qustion1 = Qustion(
-        text: "What shape is Earth",
-        choices: ["Flat", "Ball", "Can"],
-        correctAnswer: "Flat"
-    )
+    @State var questionList = [
+        Qustion(text: "What shape is Earth", choices: ["Flat", "Ball", "Can"], correctAnswer: "Flat"),
+        Qustion(text: "What shape is Earth", choices: ["Flat", "Ball", "Can"], correctAnswer: "Can")
+    ]
 
-
+    @State private var index = 0
     @State private var selected: String? = nil
+    
+    var current: Qustion { questionList[index] }
 
     var body: some View {
         VStack(spacing: 24) {
-            Text(qustion1.text)
+            Text(current.text)
             VStack(spacing: 12) {
-                ForEach(qustion1.choices, id: \.self) { choice in
+                ForEach(current.choices, id: \.self) { choice in
                     Button {
                         selected = choice
                     } label: {
@@ -38,7 +39,7 @@ struct QuizTesting: View {
             }
 
             if let selected {
-                Text(selected == qustion1.correctAnswer ? "Correct!" : "Wrong!")
+                Text(selected == current.correctAnswer ? "Correct!" : "Wrong!")
                 // logic for go next question
             }
         }
@@ -46,8 +47,6 @@ struct QuizTesting: View {
     }
 
 }
-
-
 
 #Preview {
     QuizTesting()
