@@ -16,7 +16,7 @@ struct Qustion :Identifiable{
 
 struct ContentView: View {
     
-    @State private var quizList: [Qustion] = [
+    private let quizList: [Qustion] = [
         Qustion(question: "1. What does let declare in Swift?", options: ["0:constant", "1:variable", "2:function", "3:class"], correctAnswer: 0),
         Qustion(question: "2. Which data structure uses LIFO (Last In, First Out)?", options: ["0:Queue","1:Array","2:Stack","3:Linked List"], correctAnswer: 2),
         Qustion(question: "3. What is the time complexity of binary search on a sorted array?", options: ["0:O(n)","1:O(log n)","2:O(n²)","3:O(1)"], correctAnswer: 1),
@@ -33,55 +33,56 @@ struct ContentView: View {
         Qustion(question: "14. What is Codable in Swift?", options: ["0: A UI component","1: A protocol for encoding/decoding","2: A database library","3: A network manager"], correctAnswer: 1),
         Qustion(question: "15. What does @State do in SwiftUI?", options: ["0: Defines a constant","1: Creates a mutable value owned by the view","2: Shares data between views","3: Observes external objects"], correctAnswer: 1)
     ]
-    @State var index : Int = 0
-    @State var selected : Int? = nil
-    @State var showResult: Bool = false
     
-    var current: Qustion {
-        quizList[index]
-    }
     var body: some View {
-        VStack {
-            NavigationStack{
+        NavigationStack{
+            VStack {
                 List {
                     ForEach(quizList) { quiz in
                         NavigationLink(quiz.question, destination:
-                            VStack{
-                    ForEach(quiz.options.indices, id: \.self) { i in
-                                Button(quiz.options[i]){
-                                    selected = i
-                                    showResult.toggle()
-                                }
-                            }
-                            
-                                .sheet(isPresented: $showResult){
-                                    Text(selected == current.correctAnswer ? "Correct" : "Wrong")
-                                }
-                                
-                            
-                            
-                        }
-                                       
-                    )
+                         QuestionDetailView(quiz: quiz)
+                        )
+                    }
                 }
+                .navigationTitle("testing time")
             }
-            .navigationTitle("testing time")
         }
         
-    }
+        
         .padding()
+    }
 }
-}
 
-
-
-struct answer : View {
+struct QuestionDetailView: View {
     
+    let quiz: Qustion
+    @State var selected : Int? = nil
+    @State var showResult = false
     
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            Text("Correct answer index: \(quiz.correctAnswer)") // debug
+            ForEach(quiz.options.indices, id: \.self){i in
+                Button(quiz.options[i]){
+                    selected = i
+                }
+            }
+            
+            
+            if let sel = selected{
+                Text(sel == quiz.correctAnswer ? "Correct" : "Wrong")
+                    .padding()
+                    .background(sel == quiz.correctAnswer ? Color.green : Color.red)
+            }
+            
+        }
+        .sheet(isPresented: $showResult) {
+                   
+                }
+
     }
 }
+
 
 
 
