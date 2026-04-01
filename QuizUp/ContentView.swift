@@ -34,54 +34,84 @@ struct ContentView: View {
         Qustion(question: "15. What does @State do in SwiftUI?", options: ["0: Defines a constant","1: Creates a mutable value owned by the view","2: Shares data between views","3: Observes external objects"], correctAnswer: 1)
     ]
     
-    var body: some View {
-        NavigationStack{
-            VStack {
-                List {
-                    ForEach(quizList) { quiz in
-                        NavigationLink(quiz.question, destination:
-                         QuestionDetailView(quiz: quiz)
-                        )
-                    }
-                }
-                .navigationTitle("testing time")
-            }
-        }
-        
-        
-        .padding()
-    }
-}
-
-struct QuestionDetailView: View {
-    
-    let quiz: Qustion
-    @State var selected : Int? = nil
-    @State var showResult = false
-    
-    var body: some View {
-        VStack {
-            Text("Correct answer index: \(quiz.correctAnswer)") // debug
-            ForEach(quiz.options.indices, id: \.self){i in
-                Button(quiz.options[i]){
-                    selected = i
-                }
-            }
-            
-            
-            if let sel = selected{
-                Text(sel == quiz.correctAnswer ? "Correct" : "Wrong")
-                    .padding()
-                    .background(sel == quiz.correctAnswer ? Color.green : Color.red)
-            }
-            
-        }
-        .sheet(isPresented: $showResult) {
+       @State private var currentIndex = 0
+       @State private var selectedOption: String? = nil
+       @State private var showScore = false
+       @State private var score = 0
+       
+       var currentQuiz: Qustion { quizList[currentIndex] }
+       
+       var body: some View {
+           NavigationStack {
+               VStack(spacing: 20) {
                    
-                }
-
+                   Text("Question \(currentIndex + 1) of \(quizList.count)")
+                       .foregroundColor(.gray)
+                   
+                   // Question
+                   Text(currentQuiz.question)
+                       .font(.title2)
+                       .bold()
+                       .multilineTextAlignment(.center)
+                       .padding()
+                   
+                   // Options
+                   ForEach(currentQuiz.options, id: \.self) { option in
+                       Button(action: { answerTapped(option) }) {
+                           Text(option)
+                               .frame(maxWidth: .infinity)
+                               .padding()
+                               .background(buttonColor(option))
+                               .foregroundColor(.white)
+                               .cornerRadius(12)
+                       }
+                       .disabled(selectedOption != nil) //It disables ALL buttons after user picks an answer
+                   }
+                   
+                   Spacer()
+                   
+                   
+                   if showScore {
+                       Text(" Score: \(score)/\(quizList.count)")
+                           .font(.title)
+                           .bold()
+                   }
+               }
+               .padding()
+               .navigationTitle("Quiz")
+           }
+       }
+       
+    func answerTapped(_ option: String) {
+        selectedOption = option
+        
+        let correctOption = currentQuiz.options[currentQuiz.correctAnswer] // get string from index
+        
+        if option == correctOption { score += 1 } // compare strings
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if currentIndex + 1 < quizList.count {
+                currentIndex += 1
+                selectedOption = nil
+            } else {
+                showScore = true
+            }
+        }
     }
-}
+
+       
+    func buttonColor(_ option: String) -> Color {
+        guard let selected = selectedOption else { return .blue }
+        
+        let correctOption = currentQuiz.options[currentQuiz.correctAnswer] // get string from index
+        
+        if option == correctOption { return .green }
+        if option == selected { return .red }
+        return .blue
+    }
+
+   }
+
 
 
 
@@ -94,8 +124,8 @@ struct FirstView: View {
     }
     var body: some View {
         
-        VStack {
-            NavigationStack {
+        NavigationStack {
+            VStack {
                 List {
                     ForEach(Category.allCases, id: \.self) { category in
                         NavigationLink(category.rawValue, destination:
@@ -103,6 +133,7 @@ struct FirstView: View {
                     }
                 }
                 .navigationTitle(Text("Categories"))
+                
                 
             }
         }
