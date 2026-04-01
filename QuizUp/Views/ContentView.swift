@@ -9,7 +9,7 @@ import SwiftUI
 struct ContentView: View {
 
     @State private var currentIndex = 0
-    @State private var selectedOption: String? = nil
+    @State private var selectedChoice: String? = nil
     @State private var showScore = false
     @State private var score = 0
     @State private var questionList = QuizData.programmingQuestions
@@ -30,17 +30,17 @@ struct ContentView: View {
                     .multilineTextAlignment(.center)
                     .padding()
 
-                // Options
-                ForEach(currentQuiz.choices, id: \.self) { option in
-                    Button(action: { answerTapped(option) }) {
-                        Text(option)
+                // choices
+                ForEach(currentQuiz.choices, id: \.self) { choice in
+                    Button(action: { answerTapped(choice) }) {
+                        Text(choice)
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(buttonColor(option))
+                            .background(buttonColor(choice))
                             .foregroundColor(.white)
                             .cornerRadius(12)
                     }
-                    .disabled(selectedOption != nil)  //It disables ALL buttons after user picks an answer
+                    .disabled(selectedChoice != nil)  //It disables ALL buttons after user picks an answer
                 }
 
                 Spacer()
@@ -56,41 +56,37 @@ struct ContentView: View {
         }
     }
 
-    func answerTapped(_ option: String) {
-        selectedOption = option
+    func answerTapped(_ choice: String) {
+        selectedChoice = choice
 
-        let correctOption = currentQuiz.choices[currentQuiz.correctAnswer]  // get string from index
+        let correctChoice = currentQuiz.choices[currentQuiz.correctAnswer]  // get string from index
 
-        if option == correctOption { score += 1 }  // compare strings
+        if choice == correctChoice { score += 1 }  // compare strings
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if currentIndex + 1 < questionList.count {
                 currentIndex += 1
-                selectedOption = nil
+                selectedChoice = nil
             } else {
                 showScore = true
             }
         }
     }
 
-    func buttonColor(_ option: String) -> Color {
-        guard let selected = selectedOption else { return .blue }
+    func buttonColor(_ choice: String) -> Color {
+        guard let selected = selectedChoice else { return .blue }
 
-        let correctOption = currentQuiz.choices[currentQuiz.correctAnswer]  // get string from index
+        let correctChoice = currentQuiz.choices[currentQuiz.correctAnswer]  // get string from index
 
-        if option == correctOption { return .green }
-        if option == selected { return .red }
+        if choice == correctChoice { return .green }
+        if choice == selected { return .red }
         return .blue
     }
 
 }
 
 struct FirstView: View {
-    enum Category: String, CaseIterable {
-        case programming = "Programming"
-        case general = "General"
-        case math = "Math"
-    }
+    
     var body: some View {
 
         NavigationStack {
