@@ -16,7 +16,7 @@ struct QuizView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            Text(current.text)
+            Text(current.question)
             VStack(spacing: 12) {
                 ForEach(current.choices.indices, id: \.self) { i in
                     Button {
