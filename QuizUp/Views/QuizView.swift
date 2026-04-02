@@ -1,4 +1,3 @@
-//
 //  QuizTesting.swift
 //  QuizUp
 //
@@ -7,29 +6,17 @@
 
 import SwiftUI
 
-struct Qustion: Identifiable {
-    let id = UUID()
-    let text: String
-    let choices: [String]
-    let correctAnswer: Int
-}
+struct QuizView: View {
 
-struct QuizTesting: View {
-    @State var questionList = [
-        Qustion(text: "What shape is Earth1", choices: ["Flat", "Ball", "Can"], correctAnswer: 0),
-        Qustion(text: "What shape is Earth2", choices: ["Flat", "Ball", "Can"], correctAnswer: 2),
-        Qustion(text: "What shape is Earth3", choices: ["Flat", "Ball", "Can"], correctAnswer: 1),
-        Qustion(text: "What shape is Earth4", choices: ["Flat", "Ball", "Can"], correctAnswer: 1)
-    ]
-
+    @State private var questionList = QuizData.questionList
     @State private var index = 0
     @State private var selected: Int? = nil
-    
-    var current: Qustion { questionList[index] }
+
+    var current: Question { questionList[index] }
 
     var body: some View {
         VStack(spacing: 24) {
-            Text(current.text)
+            Text(current.question)
             VStack(spacing: 12) {
                 ForEach(current.choices.indices, id: \.self) { i in
                     Button {
@@ -56,5 +43,5 @@ struct QuizTesting: View {
 }
 
 #Preview {
-    QuizTesting()
+    QuizView()
 }
