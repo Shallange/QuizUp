@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var selectedChoice: String? = nil
     @State private var showScore = false
     @State private var score = 0
-    @State private var questionList = QuizData.programmingQuestions
+    @State private var questionList = QuizData.questionList //TODO undo this
 
     var currentQuiz: Question { questionList[currentIndex] }
 
@@ -50,6 +50,9 @@ struct ContentView: View {
                         .font(.title)
                         .bold()
                 }
+            }
+            .navigationDestination(isPresented: $showScore){
+                ResultView()
             }
             .padding()
             .navigationTitle("Quiz")
