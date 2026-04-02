@@ -12,7 +12,8 @@ struct ContentView: View {
     @State private var selectedChoice: String? = nil
     @State private var showScore = false
     @State private var score = 0
-    @State private var questionList = QuizData.programmingQuestions
+    @State private var answers: [String] = []
+    @State private var questionList = QuizData.questionList //TODO undo this
 
     var currentQuiz: Question { questionList[currentIndex] }
 
@@ -51,6 +52,9 @@ struct ContentView: View {
                         .bold()
                 }
             }
+            .navigationDestination(isPresented: $showScore){
+                ResultView(score: score, total: questionList.count, questions: questionList, answers: answers)
+            }
             .padding()
             .navigationTitle("Quiz")
         }
@@ -62,6 +66,8 @@ struct ContentView: View {
         let correctChoice = currentQuiz.choices[currentQuiz.correctAnswer]  // get string from index
 
         if choice == correctChoice { score += 1 }  // compare strings
+
+        answers.append(choice)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if currentIndex + 1 < questionList.count {
