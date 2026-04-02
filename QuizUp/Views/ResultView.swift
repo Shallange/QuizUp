@@ -9,11 +9,17 @@ import SwiftUI
 
 
 struct ResultView: View {
+    var score: Int
+    var total: Int
+
     var body: some View {
-        
+        Text("Score: \(score)/\(total)")
+        .font(.title)
+        .bold()
     }
 }
 
 #Preview{
-    ResultView()
+    // need something within the paraminter.they change after so it is no problem(so far)
+    ResultView(score: 5, total: 10)
 }

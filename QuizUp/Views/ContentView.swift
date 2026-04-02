@@ -52,7 +52,7 @@ struct ContentView: View {
                 }
             }
             .navigationDestination(isPresented: $showScore){
-                ResultView()
+                ResultView(score: score, total: questionList.count)
             }
             .padding()
             .navigationTitle("Quiz")
