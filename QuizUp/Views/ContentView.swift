@@ -64,13 +64,10 @@ struct ContentView: View {
                         .bold()
                 }
             }
-            .navigationDestination(isPresented: $showScore) {
-                ResultView(
-                    score: score,
-                    total: questionList.count,
-                    questions: questionList,
-                    answers: answers
-                )
+
+            .navigationDestination(isPresented: $showScore){
+                ResultView(score: $score, total: questionList.count, questions: questionList, answers: $answers, currentIndex: $currentIndex, showScore: $showScore, selectedChoice: $selectedChoice)
+
             }
             .padding()
             .navigationTitle("Quiz")
