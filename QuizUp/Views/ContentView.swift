@@ -13,8 +13,20 @@ struct ContentView: View {
     @State private var showScore = false
     @State private var score = 0
     @State private var answers: [String] = []
-    @State private var questionList = QuizData.questionList //TODO undo this
+    
+    let category: Category
 
+    var questionList: [Question] {
+        switch category {
+        case .programming:
+            return QuizData.programmingQuestions
+        case .general:
+            return QuizData.generalQuestions
+        case .math:
+            return QuizData.mathQuestions
+        }
+    }
+    
     var currentQuiz: Question { questionList[currentIndex] }
 
     var body: some View {
@@ -52,8 +64,10 @@ struct ContentView: View {
                         .bold()
                 }
             }
+
             .navigationDestination(isPresented: $showScore){
                 ResultView(score: $score, total: questionList.count, questions: questionList, answers: $answers, currentIndex: $currentIndex, showScore: $showScore, selectedChoice: $selectedChoice)
+
             }
             .padding()
             .navigationTitle("Quiz")
@@ -91,29 +105,8 @@ struct ContentView: View {
 
 }
 
-struct FirstView: View {
-    
-    var body: some View {
-
-        NavigationStack {
-            VStack {
-                List {
-                    ForEach(Category.allCases, id: \.self) { category in
-                        NavigationLink(
-                            category.rawValue,
-                            destination:
-                                category == .programming
-                                ? AnyView(ContentView())
-                                : AnyView(Text("Other"))
-                        )
-                    }
-                }
-                .navigationTitle(Text("Categories"))
-
-            }
-        }
-    }
-}
 #Preview {
-    FirstView()
+    NavigationStack{
+        ContentView(category: .general)
+    }
 }

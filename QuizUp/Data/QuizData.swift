@@ -5,29 +5,6 @@ import Foundation
 
 struct QuizData {
 
-    static let questionList = [
-        Question(
-            question: "What shape is Earth1",
-            choices: ["Flat", "Ball", "Can"],
-            correctAnswer: 0
-        ),
-        Question(
-            question: "What shape is Earth2",
-            choices: ["Flat", "Ball", "Can"],
-            correctAnswer: 2
-        ),
-        Question(
-            question: "What shape is Earth3",
-            choices: ["Flat", "Ball", "Can"],
-            correctAnswer: 1
-        ),
-        Question(
-            question: "What shape is Earth4",
-            choices: ["Flat", "Ball", "Can"],
-            correctAnswer: 1
-        ),
-    ]
-
     static let programmingQuestions = [
         Question(
             question: "1. What does let declare in Swift?",
@@ -139,6 +116,169 @@ struct QuizData {
                 "2: Shares data between views", "3: Observes external objects",
             ],
             correctAnswer: 1
+        ),
+    ]
+    static let generalQuestions = [
+        Question(
+            question: "1. What is the capital of France?",
+            choices: ["0:Berlin", "1:Paris", "2:Rome", "3:Madrid"],
+            correctAnswer: 1
+        ),
+        Question(
+            question: "2. Which planet is known as the Red Planet?",
+            choices: ["0:Earth", "1:Mars", "2:Jupiter", "3:Venus"],
+            correctAnswer: 1
+        ),
+        Question(
+            question: "3. How many continents are there?",
+            choices: ["0:5", "1:6", "2:7", "3:8"],
+            correctAnswer: 2
+        ),
+        Question(
+            question: "4. What is the largest ocean?",
+            choices: ["0:Atlantic", "1:Indian", "2:Arctic", "3:Pacific"],
+            correctAnswer: 3
+        ),
+        Question(
+            question: "5. Who wrote 'Romeo and Juliet'?",
+            choices: [
+                "0:Shakespeare", "1:Hemingway", "2:Tolkien", "3:Rowling",
+            ],
+            correctAnswer: 0
+        ),
+
+        Question(
+            question: "6. What is the capital of Sweden?",
+            choices: ["0:Oslo", "1:Copenhagen", "2:Stockholm", "3:Helsinki"],
+            correctAnswer: 2
+        ),
+        Question(
+            question: "7. Which animal is known as man's best friend?",
+            choices: ["0:Cat", "1:Dog", "2:Horse", "3:Bird"],
+            correctAnswer: 1
+        ),
+        Question(
+            question: "8. What gas do humans breathe in?",
+            choices: [
+                "0:Carbon dioxide", "1:Oxygen", "2:Nitrogen", "3:Hydrogen",
+            ],
+            correctAnswer: 1
+        ),
+        Question(
+            question: "9. What is H2O?",
+            choices: ["0:Oxygen", "1:Hydrogen", "2:Salt", "3:Water"],
+            correctAnswer: 3
+        ),
+        Question(
+            question: "10. Which country is famous for pizza?",
+            choices: ["0:France", "1:Italy", "2:Spain", "3:Greece"],
+            correctAnswer: 1
+        ),
+
+        Question(
+            question: "11. What color do you get by mixing red and white?",
+            choices: ["0:Pink", "1:Purple", "2:Orange", "3:Brown"],
+            correctAnswer: 0
+        ),
+        Question(
+            question: "12. How many days are in a week?",
+            choices: ["0:5", "1:6", "2:7", "3:8"],
+            correctAnswer: 2
+        ),
+        Question(
+            question: "13. What is the freezing point of water?",
+            choices: ["0:0°C", "1:10°C", "2:32°C", "3:100°C"],
+            correctAnswer: 0
+        ),
+        Question(
+            question: "14. Which continent is Egypt in?",
+            choices: ["0:Asia", "1:Africa", "2:Europe", "3:Australia"],
+            correctAnswer: 1
+        ),
+        Question(
+            question: "15. What is the tallest animal?",
+            choices: ["0:Elephant", "1:Giraffe", "2:Lion", "3:Horse"],
+            correctAnswer: 1
+        ),
+    ]
+
+    static let mathQuestions = [
+        Question(
+            question: "1. What is 5 + 3?",
+            choices: ["0:6", "1:7", "2:8", "3:9"],
+            correctAnswer: 2
+        ),
+        Question(
+            question: "2. What is 12 × 4?",
+            choices: ["0:36", "1:48", "2:52", "3:44"],
+            correctAnswer: 1
+        ),
+        Question(
+            question: "3. What is the square root of 64?",
+            choices: ["0:6", "1:7", "2:8", "3:9"],
+            correctAnswer: 2
+        ),
+        Question(
+            question: "4. What is 15 − 7?",
+            choices: ["0:6", "1:7", "2:8", "3:9"],
+            correctAnswer: 2
+        ),
+        Question(
+            question: "5. What is 9 × 9?",
+            choices: ["0:72", "1:81", "2:99", "3:90"],
+            correctAnswer: 1
+        ),
+
+        Question(
+            question: "6. What is 100 ÷ 10?",
+            choices: ["0:5", "1:10", "2:20", "3:25"],
+            correctAnswer: 1
+        ),
+        Question(
+            question: "7. What is 7 × 6?",
+            choices: ["0:36", "1:42", "2:48", "3:54"],
+            correctAnswer: 1
+        ),
+        Question(
+            question: "8. What is 50 − 25?",
+            choices: ["0:20", "1:25", "2:30", "3:35"],
+            correctAnswer: 1
+        ),
+        Question(
+            question: "9. What is 3²?",
+            choices: ["0:6", "1:9", "2:12", "3:3"],
+            correctAnswer: 1
+        ),
+        Question(
+            question: "10. What is 10 + 15?",
+            choices: ["0:20", "1:25", "2:30", "3:35"],
+            correctAnswer: 1
+        ),
+
+        Question(
+            question: "11. What is 8 × 7?",
+            choices: ["0:54", "1:56", "2:58", "3:60"],
+            correctAnswer: 1
+        ),
+        Question(
+            question: "12. What is 144 ÷ 12?",
+            choices: ["0:10", "1:11", "2:12", "3:13"],
+            correctAnswer: 2
+        ),
+        Question(
+            question: "13. What is 6³?",
+            choices: ["0:36", "1:216", "2:108", "3:64"],
+            correctAnswer: 1
+        ),
+        Question(
+            question: "14. What is 25 + 25?",
+            choices: ["0:40", "1:45", "2:50", "3:55"],
+            correctAnswer: 2
+        ),
+        Question(
+            question: "15. What is 90 ÷ 9?",
+            choices: ["0:8", "1:9", "2:10", "3:11"],
+            correctAnswer: 2
         ),
     ]
 }
