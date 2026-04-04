@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var showScore = false
     @State private var score = 0
     @State private var answers: [String] = []
-    @State private var questionList = QuizData.questionList //TODO undo this
+    @State private var questionList = QuizData.programmingQuestions
 
     var currentQuiz: Question { questionList[currentIndex] }
 
