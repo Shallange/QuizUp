@@ -30,7 +30,7 @@ struct ContentView: View {
     var currentQuiz: Question { questionList[currentIndex] }
 
     var body: some View {
-        NavigationStack {
+        
             VStack(spacing: 20) {
 
                 Text("Question \(currentIndex + 1) of \(questionList.count)")
@@ -65,13 +65,20 @@ struct ContentView: View {
                 }
             }
 
-            .navigationDestination(isPresented: $showScore){
-                ResultView(score: $score, total: questionList.count, questions: questionList, answers: $answers, currentIndex: $currentIndex, showScore: $showScore, selectedChoice: $selectedChoice)
-
+            .navigationDestination(isPresented: $showScore) {
+                ResultView(score: score, total: questionList.count, questions: questionList, answers: answers, showScore: $showScore)
+            }
+            .onChange(of: showScore) { _, newValue in
+                if !newValue {
+                    currentIndex = 0
+                    score = 0
+                    answers = []
+                    selectedChoice = nil
+                }
             }
             .padding()
             .navigationTitle("Quiz")
-        }
+        
     }
 
     func answerTapped(_ choice: String) {
@@ -106,6 +113,7 @@ struct ContentView: View {
 }
 
 #Preview {
+
     NavigationStack{
         ContentView(category: .general)
     }
